@@ -11,19 +11,17 @@
 <body>
  <?php    
    
-   $servername = "localhost";
-   $username = "root";
-   $password = ""; // Use your actual MySQL password
-   $dbname = "computer_inventory";
+   include_once 'includes/config.php';
 
-   $conn = mysqli_connect($servername, $username, $password, $dbname);
-   
+   // Create database connection
+   $conn = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
    if(mysqli_connect_errno())
    {
     echo"Failed to connect";
     exit();
    }
-   echo "Connection success";
+   echo "Connection success!";
  
  ?>
 
