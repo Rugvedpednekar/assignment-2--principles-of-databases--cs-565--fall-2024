@@ -10,9 +10,6 @@ CREATE TABLE IF NOT EXISTS models (
     url VARCHAR(255)
 );
 
-
--- Insert data into models table
-
 INSERT INTO models (model_name, model_identifier, model_number, part_number, serial_number, darwin_os_number, latest_support_darwin_os, url)
 VALUES
     ('MacBook (Retina, 12-inch, Early 2015)', 'MacBook8,1', 'A1534', 'Z0RN00003', '2QJ02DC0GCN2', 15, 20, 'Link'),
