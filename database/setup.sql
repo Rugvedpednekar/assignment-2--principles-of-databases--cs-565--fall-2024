@@ -7,3 +7,8 @@ CREATE USER IF NOT EXISTS 'computer_inventory_manager'@'localhost' IDENTIFIED BY
 GRANT ALL PRIVILEGES ON computer_inventory.* TO 'computer_inventory_manager'@'localhost';
 
 USE computer_inventory;
+
+
+SOURCE models.sql;
+SOURCE macos_versions.sql;
+SOURCE model_os_compatibility.sql;

@@ -7,3 +7,5 @@ CREATE TABLE IF NOT EXISTS macos_versions (
     date_released DATE,
     latest_release_date DATE
 );
+
+

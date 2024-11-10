@@ -9,5 +9,23 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+ <?php    
+   
+   $servername = "localhost";
+   $username = "root";
+   $password = ""; // Use your actual MySQL password
+   $dbname = "computer_inventory";
+
+   $conn = mysqli_connect($servername, $username, $password, $dbname);
+   
+   if(mysqli_connect_errno())
+   {
+    echo"Failed to connect";
+    exit();
+   }
+   echo "Connection success";
+ 
+ ?>
+
 </body>
 </html>
