@@ -22,6 +22,19 @@
     exit();
    }
    echo "Connection success!";
+
+   $query = "SELECT COUNT(*) AS total_versions FROM macos_versions";
+   $result = mysqli_query($conn, $query);
+   $row = mysqli_fetch_assoc($result);
+   $total_versions = $row['total_versions'];
+
+   // Display total number of macOS versions
+   echo "<h2>How Many Versions of macOS Have Been Released?</h2>";
+   echo "<p>There have been " . $total_versions . " versions of macOS released thus far.</p>";
+
+   // Close the connection
+   mysqli_close($conn);
+
  
  ?>
 
