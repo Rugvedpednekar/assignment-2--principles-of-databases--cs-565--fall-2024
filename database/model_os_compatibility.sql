@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS model_os_compatibility (
+CREATE TABLE IF NOT EXISTS model_compatibility (
     model_id INT,
     model_name VARCHAR(100) NOT NULL,
     installed_os VARCHAR(50),
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS model_os_compatibility (
     FOREIGN KEY (model_id) REFERENCES models(id)
 );
 
-INSERT INTO model_os_compatibility (model_id, model_name, installed_os, last_supported_os)
+INSERT INTO model_compatibility (model_id, model_name, installed_os, last_supported_os)
 VALUES
   (1, 'MacBook (Retina, 12-inch, Early 2015)', 'macOS El Capitan', 'macOS Big Sur'),
   (2, 'MacBook Pro (15-inch, 2.53GHz, Mid 2009)', 'macOS Leopard', 'macOS El Capitan'),
