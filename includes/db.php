@@ -60,12 +60,19 @@ function fetchCurrentDeviceInventory(): array {
     try {
         $db = initializeDatabaseConnection();
         $statement = $db->prepare(
-            "SELECT model, model_id, model_number, part_number, serial_number, devices.darwin AS current_darwin, models.darwin AS last_darwin, url
-             FROM devices
-             CROSS JOIN models USING(model_id)"
+            "SELECT models.model,
+                    models.model_id,
+                    models.model_number,
+                    models.part_number,
+                    models.serial_number,
+                    models.darwin AS current_darwin,
+                    os.darwin AS last_darwin,
+                    models.url  -- Explicitly select `models.url`
+             FROM models
+             LEFT JOIN os ON models.darwin = os.darwin"
         );
         $statement->execute();
-        return $statement->fetchAll();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     catch (PDOException $e) {
         echo $e->getMessage();
@@ -77,20 +84,12 @@ function fetchCurrentInventoryWithOs(): array {
     try {
         $db = initializeDatabaseConnection();
         $statement = $db->prepare(
-            "SELECT model, model_release, device_release
-             FROM (
-                 (SELECT model, release_name AS model_release
-                  FROM models
-                  CROSS JOIN os USING(darwin)
-                 ) AS model_releases
-                 CROSS JOIN
-                 (SELECT model, release_name AS device_release
-                  FROM os
-                  CROSS JOIN devices USING(darwin)
-                  CROSS JOIN models USING(model_id)
-                 ) AS device_releases
-                 USING(model)
-             )"
+            "SELECT models.model,
+                    os_release.release_name AS model_release,
+                    installed_release.release_name AS device_release
+             FROM models
+             JOIN os AS os_release ON models.darwin = os_release.darwin
+             JOIN os AS installed_release ON models.darwin = installed_release.darwin"
         );
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
