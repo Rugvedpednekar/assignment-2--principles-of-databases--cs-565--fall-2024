@@ -13,7 +13,7 @@ function initializeDatabaseConnection(): PDO {
 function countOperatingSystemVersions(): int {
     try {
         $db = initializeDatabaseConnection();
-        $statement = $db->prepare("SELECT COUNT(*) FROM operating_systems");
+        $statement = $db->prepare("SELECT COUNT(*) FROM os");
         $statement->execute();
         $cols = $statement->fetchAll();
         return $cols[0]['COUNT(*)'];
@@ -27,7 +27,7 @@ function countOperatingSystemVersions(): int {
 function fetchOperatingSystems(): array {
     try {
         $db = initializeDatabaseConnection();
-        $statement = $db->prepare("SELECT version_name, release_name, darwin, announced, released, last_release FROM operating_systems NATURAL JOIN dates ORDER BY announced");
+        $statement = $db->prepare("SELECT version_name, release_name, darwin, announced, released, last_release FROM os NATURAL JOIN dates ORDER BY announced");
         $statement->execute();
         return $statement->fetchAll();
     }
@@ -46,7 +46,7 @@ function formatVersionColumn(array $col): array {
 function fetchOsVersionAndRelease(): array {
     try {
         $db = initializeDatabaseConnection();
-        $statement = $db->prepare("SELECT version_name, release_name, released FROM operating_systems NATURAL JOIN dates ORDER BY released");
+        $statement = $db->prepare("SELECT version_name, release_name, released FROM os NATURAL JOIN dates ORDER BY released");
         $statement->execute();
         return array_map("formatVersionColumn", $statement->fetchAll());
     }
@@ -81,11 +81,11 @@ function fetchCurrentInventoryWithOs(): array {
              FROM (
                  (SELECT model, release_name AS model_release
                   FROM models
-                  CROSS JOIN operating_systems USING(darwin)
+                  CROSS JOIN os USING(darwin)
                  ) AS model_releases
                  CROSS JOIN
                  (SELECT model, release_name AS device_release
-                  FROM operating_systems
+                  FROM os
                   CROSS JOIN devices USING(darwin)
                   CROSS JOIN models USING(model_id)
                  ) AS device_releases
