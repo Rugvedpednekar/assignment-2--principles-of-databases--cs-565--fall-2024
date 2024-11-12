@@ -8,7 +8,11 @@ GRANT ALL PRIVILEGES ON computer_inventory.* TO 'computer_inventory_manager'@'lo
 
 USE computer_inventory;
 
+SOURCE create_os_table.sql;
+SOURCE create_dates_table.sql;
+SOURCE create_models_table.sql;
 
-SOURCE models.sql;
-SOURCE macos_versions.sql;
-SOURCE model_os_compatibility.sql;
+-- populate tables
+SOURCE populate_os_table.sql;
+SOURCE populate_dates_table.sql;
+SOURCE populate_models_table.sql;
