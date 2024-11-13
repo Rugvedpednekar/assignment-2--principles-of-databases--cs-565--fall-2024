@@ -1,25 +1,19 @@
 <?php
 
-// Database connection function
 function initializeDatabaseConnection(): mysqli {
-    // Include the config file for DB credentials
     include_once "config.php";
 
-    // Create a new MySQLi instance to connect to the database
     $db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
-    // Check if the connection was successful
     if ($db->connect_error) {
         die("Database connection failed: " . $db->connect_error);
     }
 
-    // Set the charset for proper encoding (UTF-8)
     $db->set_charset("utf8mb4");
 
     return $db;
 }
 
-// Function to count the number of OS versions
 function countOperatingSystemVersions(): int {
     try {
         $db = initializeDatabaseConnection();
@@ -39,7 +33,6 @@ function countOperatingSystemVersions(): int {
     }
 }
 
-// Function to fetch all operating systems
 function fetchOperatingSystems(): array {
     try {
         $db = initializeDatabaseConnection();
@@ -60,14 +53,12 @@ function fetchOperatingSystems(): array {
     }
 }
 
-// Helper function to format OS version details
 function formatVersionColumn(array $col): array {
     $colMod["name"] = $col["version_name"] . " (" . $col["release_name"] . ")";
     $colMod["released"] = substr($col["released"], 0, 4);  // Extract only the year
     return $colMod;
 }
 
-// Fetch OS version and release data, formatted
 function fetchOsVersionAndRelease(): array {
     try {
         $db = initializeDatabaseConnection();
@@ -89,7 +80,6 @@ function fetchOsVersionAndRelease(): array {
     }
 }
 
-// Function to fetch the current device inventory
 function fetchCurrentDeviceInventory(): array {
     try {
         $db = initializeDatabaseConnection();
@@ -116,7 +106,6 @@ function fetchCurrentDeviceInventory(): array {
     }
 }
 
-// Function to fetch the current inventory with OS release data
 function fetchCurrentInventoryWithOs(): array {
     try {
         $db = initializeDatabaseConnection();

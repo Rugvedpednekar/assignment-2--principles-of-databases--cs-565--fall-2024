@@ -11,8 +11,6 @@ USE computer_inventory;
 SOURCE create_os_table.sql;
 SOURCE create_dates_table.sql;
 SOURCE create_models_table.sql;
-
--- populate tables
 SOURCE populate_os_table.sql;
 SOURCE populate_dates_table.sql;
 SOURCE populate_models_table.sql;
