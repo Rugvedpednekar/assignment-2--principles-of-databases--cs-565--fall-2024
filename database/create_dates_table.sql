@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS dates (
   last_release   DATE         DEFAULT NULL,
   darwin         VARCHAR(8)   NOT NULL,
 
-  PRIMARY KEY (announced)
+  FOREIGN       KEY (darwin)  REFERENCES os(darwin),
+  PRIMARY       KEY(announced)
 );

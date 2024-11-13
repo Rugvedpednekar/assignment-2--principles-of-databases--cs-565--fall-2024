@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS models (
     darwin        VARCHAR(20)  NOT NULL,
     serial_number VARCHAR(30)  NOT NULL,
 
+  FOREIGN KEY (darwin) REFERENCES os(darwin),
   PRIMARY KEY(model_id)
 );
